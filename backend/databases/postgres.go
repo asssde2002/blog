@@ -3,15 +3,14 @@ package databases
 import (
 	"context"
 	"log"
-	"os"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 var DBPool *pgxpool.Pool
 
-func InitDB(dataSource string) {
-	config, err := pgxpool.ParseConfig(os.Getenv("DATABASE_URL"))
+func InitDB(connectString string) {
+	config, err := pgxpool.ParseConfig(connectString)
 	if err != nil {
 		log.Fatalf("Unable to connect to database: %v", err)
 	}
