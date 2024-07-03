@@ -5,15 +5,16 @@ import (
 	"context"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Post struct {
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
-	Content   string `json:"content"`
-	CreatedAt string `json:"created_at"`
+	ID        int       `json:"id"`
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 func RegisterPostRoutes(router *gin.Engine) {
@@ -127,12 +128,12 @@ func fetchPost(id int) (*Post, error) {
 }
 
 func createPost(p *Post) error {
-	err := databases.DBPool.QueryRow(context.Background(), "INSERT INTO posts (title, content, created_at) VALUES ($1, $2, $3) RETURNING id", p.Title, p.Content, p.CreatedAt).Scan(&p.ID)
+	err := databases.DBPool.QueryRow(context.Background(), "INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING id, created_at", p.Title, p.Content).Scan(&p.ID, &p.CreatedAt)
 	return err
 }
 
 func updatePost(p *Post) error {
-	_, err := databases.DBPool.Exec(context.Background(), "UPDATE posts SET title=$1, content=$2, created_at=$3 WHERE id=$4", p.Title, p.Content, p.CreatedAt, p.ID)
+	_, err := databases.DBPool.Exec(context.Background(), "UPDATE posts SET title=$1, content=$2 WHERE id=$3", p.Title, p.Content, p.ID)
 	return err
 }
 
