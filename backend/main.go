@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backend/databases"
 	"backend/handlers"
 
 	"github.com/gin-contrib/cors"
@@ -11,11 +12,11 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	router.GET("/posts", handlers.GetPosts)
-	router.GET("/posts/:id", handlers.GetPost)
-	router.POST("/posts", handlers.CreatePost)
-	router.PUT("/posts/:id", handlers.UpdatePost)
-	router.DELETE("/posts/:id", handlers.DeletePost)
+	connectString := "postgres://postgres:@localhost:5432/blog?sslmode=disable"
+	databases.InitDB(connectString)
+	defer databases.CloseDB()
+
+	handlers.RegisterPostRoutes(router)
 
 	router.Run(":8080")
 }
