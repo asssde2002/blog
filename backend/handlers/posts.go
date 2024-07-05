@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"backend/databases"
+	"backend/utils"
 	"context"
 	"net/http"
 	"strconv"
@@ -101,7 +101,7 @@ func DeletePost(c *gin.Context) {
 }
 
 func fetchAllPosts() ([]Post, error) {
-	rows, err := databases.DBPool.Query(context.Background(), "SELECT id, title, content, created_at FROM posts")
+	rows, err := utils.DBPool.Query(context.Background(), "SELECT id, title, content, created_at FROM posts")
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +120,7 @@ func fetchAllPosts() ([]Post, error) {
 
 func fetchPost(id int) (*Post, error) {
 	var p Post
-	err := databases.DBPool.QueryRow(context.Background(), "SELECT id, title, content, created_at FROM posts WHERE id=$1", id).Scan(&p.ID, &p.Title, &p.Content, &p.CreatedAt)
+	err := utils.DBPool.QueryRow(context.Background(), "SELECT id, title, content, created_at FROM posts WHERE id=$1", id).Scan(&p.ID, &p.Title, &p.Content, &p.CreatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -128,16 +128,16 @@ func fetchPost(id int) (*Post, error) {
 }
 
 func createPost(p *Post) error {
-	err := databases.DBPool.QueryRow(context.Background(), "INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING id, created_at", p.Title, p.Content).Scan(&p.ID, &p.CreatedAt)
+	err := utils.DBPool.QueryRow(context.Background(), "INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING id, created_at", p.Title, p.Content).Scan(&p.ID, &p.CreatedAt)
 	return err
 }
 
 func updatePost(p *Post) error {
-	_, err := databases.DBPool.Exec(context.Background(), "UPDATE posts SET title=$1, content=$2 WHERE id=$3", p.Title, p.Content, p.ID)
+	_, err := utils.DBPool.Exec(context.Background(), "UPDATE posts SET title=$1, content=$2 WHERE id=$3", p.Title, p.Content, p.ID)
 	return err
 }
 
 func deletePost(id int) error {
-	_, err := databases.DBPool.Exec(context.Background(), "DELETE FROM posts WHERE id=$1", id)
+	_, err := utils.DBPool.Exec(context.Background(), "DELETE FROM posts WHERE id=$1", id)
 	return err
 }
