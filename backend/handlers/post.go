@@ -11,10 +11,12 @@ import (
 )
 
 type Post struct {
-	ID        int       `json:"id"`
-	Title     string    `json:"title"`
-	Content   string    `json:"content"`
-	CreatedAt time.Time `json:"created_at"`
+	ID          int       `json:"id"`
+	Title       string    `json:"title"`
+	Content     string    `json:"content"`
+	IsPublished bool      `json:"is_published"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 func RegisterPostRoutes(router *gin.Engine) {
@@ -120,7 +122,7 @@ func fetchAllPosts() ([]Post, error) {
 
 func fetchPost(id int) (*Post, error) {
 	var p Post
-	err := utils.DBPool.QueryRow(context.Background(), "SELECT id, title, content, created_at FROM posts WHERE id=$1", id).Scan(&p.ID, &p.Title, &p.Content, &p.CreatedAt)
+	err := utils.DBPool.QueryRow(context.Background(), "SELECT id, title, content, created_at FROM post WHERE id=$1", id).Scan(&p.ID, &p.Title, &p.Content, &p.CreatedAt)
 	if err != nil {
 		return nil, err
 	}
@@ -128,16 +130,16 @@ func fetchPost(id int) (*Post, error) {
 }
 
 func createPost(p *Post) error {
-	err := utils.DBPool.QueryRow(context.Background(), "INSERT INTO posts (title, content) VALUES ($1, $2) RETURNING id, created_at", p.Title, p.Content).Scan(&p.ID, &p.CreatedAt)
+	err := utils.DBPool.QueryRow(context.Background(), "INSERT INTO post (title, content, is_published) VALUES ($1, $2, $3) RETURNING id, created_at, updated_at", p.Title, p.Content, p.IsPublished).Scan(&p.ID, &p.CreatedAt, &p.UpdatedAt)
 	return err
 }
 
 func updatePost(p *Post) error {
-	_, err := utils.DBPool.Exec(context.Background(), "UPDATE posts SET title=$1, content=$2 WHERE id=$3", p.Title, p.Content, p.ID)
+	_, err := utils.DBPool.Exec(context.Background(), "UPDATE post SET title=$1, content=$2, is_published=$3 WHERE id=$4", p.Title, p.Content, p.IsPublished, p.ID)
 	return err
 }
 
 func deletePost(id int) error {
-	_, err := utils.DBPool.Exec(context.Background(), "DELETE FROM posts WHERE id=$1", id)
+	_, err := utils.DBPool.Exec(context.Background(), "DELETE FROM post WHERE id=$1", id)
 	return err
 }

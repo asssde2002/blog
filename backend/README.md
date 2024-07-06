@@ -12,7 +12,7 @@
 
 * Create migration file
 
-    `migrate create -ext sql -dir db/migrations/postgres -seq create_posts_table`
+    `migrate create -ext sql -dir db/migrations/postgres -seq create_post_table`
 
 * Migrate
 
