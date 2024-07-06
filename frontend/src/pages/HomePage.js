@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import config from "../config";
+import { Container, Grid, Card, CardContent, Typography } from "@mui/material";
 
 function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -12,14 +13,14 @@ function HomePage() {
   }, []);
 
   return (
-    <div>
-      <h1>Posts</h1>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-        </div>
-      ))}
+    <div className="bg-zinc-300 h-screen w-screen flex flex-col">
+      <div className="bg-blue-300 h-1/8">
+        Arthur Universe
+        <div>test</div>
+      </div>
+
+      <div className="bg-red-900 h-20 w-2/3"></div>
+      <div className="bg-yellow-900 h-20 w-2/3"></div>
     </div>
   );
 }
