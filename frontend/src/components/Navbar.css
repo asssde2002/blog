@@ -1,3 +1,7 @@
+.active {
+    background-color: rgb(95, 53, 97);
+}
+
 nav {
     display: flex;
     justify-content: space-between;
@@ -29,4 +33,8 @@ nav ul li a {
     margin: 0 0.5rem;
     border-radius: 0.5rem;
     
+}
+
+nav ul li a:not(.active):hover {
+    background-color: blueviolet;    
 }
