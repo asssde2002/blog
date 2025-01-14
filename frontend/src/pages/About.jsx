@@ -233,7 +233,7 @@ function Skills() {
   );
 }
 
-function HomePage() {
+export function About() {
   return (
     <div className="bg-zinc-300 h-screen w-screen flex flex-col">
       <div className="bg-blue-300 h-[12.5%]">
@@ -247,5 +247,3 @@ function HomePage() {
     </div>
   );
 }
-
-export default HomePage;

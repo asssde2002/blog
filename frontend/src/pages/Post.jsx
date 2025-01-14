@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 // import { Container, Grid, Card, CardContent, Typography } from "@mui/material";
 
-function PostPage() {
+export function Post() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -38,5 +38,3 @@ function PostPage() {
     // </Container>
   );
 }
-
-export default PostPage;

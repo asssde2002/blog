@@ -1,17 +1,20 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import PostPage from "./pages/PostPage";
-import PostPageDetail from "./pages/PostPageDetail";
+import Navbar from "./components/Navbar";
+import { Home, Post, PostDetail, About } from "./pages";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/posts/" element={<PostPage />} />
-        <Route path="/posts/:id" element={<PostPageDetail />} />
-      </Routes>
-    </Router>
+    <div className="App">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/posts/" element={<Post />} />
+          <Route path="/posts/:id" element={<PostDetail />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

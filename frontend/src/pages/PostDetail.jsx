@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import config from "../config";
 
-function PostPage() {
+export function PostDetail() {
   const [post, setPost] = useState(null);
   const { id } = useParams();
 
@@ -23,4 +23,3 @@ function PostPage() {
   );
 }
 
-export default PostPage;

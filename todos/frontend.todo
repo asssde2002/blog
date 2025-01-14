@@ -1,0 +1,12 @@
+FrontEnd:
+    Components:
+        [] NavBar
+        [] Footer
+    HomePage:
+        [] Build Page
+    AboutPage:
+        [] Build Page
+    PostPage:
+        [] Build Page
+    PostDetailPage:
+        [] Build Page
