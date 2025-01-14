@@ -1,40 +1,34 @@
 import React, { useEffect, useState } from "react";
 import config from "../config";
+import "./About.css"
 
 function QualificaitonProfile() {
+  const qualifications = [
+    "3.5 years of experience as a backend engineer, contributing to the development of several high-quality products",
+    "Strong problem-solving skills and a collaborative team player",
+    "Proficient in programming and algorithm design, with expertise in Python and Django",
+    "Eager to continue learning and advancing skills",
+    "Demonstrated leadership ability, having successfully led a team of 5 backend engineers",
+    "Extensive experience in managing and maintaining server infrastructure, including provisioning, configuration, and deployment",
+  ];
   return (
-    <div>
-      <h3 style={{ background: "yellow", fontWeight: "bold" }}>
+    <section>
+      <h3 className="title">
         QUALIFICATIONS PROFILE
       </h3>
       <ul>
-        <li>
-          3.5 years of experience as a backend engineer, contributing to the
-          development of several high-quality products
-        </li>
-        <li>Strong problem-solving skills and a collaborative team player</li>
-        <li>
-          Proficient in programming and algorithm design, with expertise in
-          Python and Django
-        </li>
-        <li>Eager to continue learning and advancing skills</li>
-        <li>
-          Demonstrated leadership ability, having successfully led a team of 5
-          backend engineers
-        </li>
-        <li>
-          Extensive experience in managing and maintaining server
-          infrastructure, including provisioning, configuration, and deployment
-        </li>
+        {qualifications.map((item, index) => ( 
+          <li key={index}>{item}</li>
+        ))} 
       </ul>
-    </div>
+    </section>
   );
 }
 
 function Education() {
   return (
-    <div>
-      <h3 style={{ background: "yellow", fontWeight: "bold" }}>EDUCATION</h3>
+    <section>
+      <h3 className="title">EDUCATION</h3>
       <ul>
         <li>
           M.S. in Computer Science & Information Engineering, National Taiwan
@@ -55,14 +49,14 @@ function Education() {
           <span> | Sep. 2014 - Jun. 2018</span>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }
 
 function WorkExperience() {
   return (
-    <div>
-      <h3 style={{ background: "yellow", fontWeight: "bold" }}>
+    <section>
+      <h3 className="title">
         WORK EXPERIENCE
       </h3>
       <ul>
@@ -187,14 +181,14 @@ function WorkExperience() {
           </ul>
         </li>
       </ul>
-    </div>
+    </section>
   );
 }
 
 function Skills() {
   return (
-    <div>
-      <h3 style={{ background: "yellow", fontWeight: "bold" }}>Skills</h3>
+    <section>
+      <h3 className="title">Skills</h3>
       <table>
         <tbody>
           <tr>
@@ -229,7 +223,7 @@ function Skills() {
           </tr>
         </tbody>
       </table>
-    </div>
+    </section>
   );
 }
 
